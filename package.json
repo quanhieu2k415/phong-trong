@@ -1,0 +1,19 @@
+{
+  "name": "phong-trong",
+  "private": true,
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "db:setup": "npm run db:setup -w server",
+    "dev": "concurrently -n db,api,web -c yellow,cyan,green \"npm run db -w server\" \"npm run dev -w server\" \"npm run dev -w client\"",
+    "build": "npm run build -w client && npm run build -w server",
+    "start": "npm start -w server",
+    "test": "npm test -w server && npm test -w client",
+    "typecheck": "npm run typecheck -w server && npm run typecheck -w client"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.5"
+  }
+}
