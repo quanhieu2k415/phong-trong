@@ -1,6 +1,9 @@
 import { createApp } from './app.js';
+import { expirePending } from './bookings.js';
 import { loadConfig } from './config.js';
 import { createPool } from './db.js';
+
+const EXPIRY_SWEEP_MS = 60_000;
 
 const config = loadConfig(process.env);
 const pool = createPool(config.databaseUrl);
@@ -9,7 +12,15 @@ const server = createApp(pool, config).listen(config.port, () => {
   console.log(`API listening on http://localhost:${config.port}`);
 });
 
+function sweepExpired(): void {
+  expirePending(pool).catch((error: unknown) => console.error('Expiry sweep failed', error));
+}
+
+sweepExpired();
+const sweeper = setInterval(sweepExpired, EXPIRY_SWEEP_MS);
+
 function shutdown(): void {
+  clearInterval(sweeper);
   server.close(() => {
     void pool.end().then(() => process.exit(0));
   });

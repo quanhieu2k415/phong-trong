@@ -12,7 +12,7 @@ const MAX_STATS_DAYS = 366;
 const UNIQUE_VIOLATION = '23505';
 
 const listQuery = z.object({
-  status: z.enum(['pending', 'confirmed', 'rejected', 'cancelled']).optional(),
+  status: z.enum(['pending', 'confirmed', 'rejected', 'cancelled', 'expired']).optional(),
   page: z.coerce.number().int().min(1).max(100_000).default(1),
 });
 

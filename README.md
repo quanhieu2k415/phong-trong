@@ -12,7 +12,7 @@
 | Khách đã đăng nhập | Đặt 1–8 giờ liền nhau, xem đơn của mình, huỷ đơn chưa bắt đầu |
 | Quản trị viên | Duyệt hoặc từ chối đơn, thêm phòng, sửa giá, chuyển bảo trì, xem doanh thu theo ngày và theo phòng |
 
-Lịch mở cửa 08:00–22:00, đặt trước tối đa 60 ngày, mỗi tài khoản giữ tối đa 5 đơn chờ duyệt chưa tới giờ. Đơn đã quá giờ chỉ có thể từ chối. Giờ tính theo Việt Nam (UTC+7).
+Lịch mở cửa 08:00–22:00, đặt trước tối đa 60 ngày, mỗi tài khoản giữ tối đa 5 đơn chờ duyệt. Đơn chờ duyệt tự hết hạn sau 24 giờ, hoặc khi tới giờ bắt đầu, và trả lại khung giờ. Giờ tính theo Việt Nam (UTC+7).
 
 ## Công nghệ
 
@@ -30,6 +30,7 @@ Lịch mở cửa 08:00–22:00, đặt trước tối đa 60 ngày, mỗi tài 
 | Hai quản trị viên cùng duyệt một đơn | `SELECT ... FOR UPDATE`, người sau nhận lỗi 409 |
 | Một tài khoản gửi nhiều đơn song song | `pg_advisory_xact_lock` theo tài khoản trước khi đếm, nên không vượt quá 5 đơn chờ duyệt |
 | Chuyển bảo trì đúng lúc có đơn mới | Khoá `FOR SHARE` trên dòng phòng khi tạo và duyệt đơn |
+| Đơn chờ duyệt bị bỏ quên | Mỗi phút server chuyển các đơn quá hạn sang `expired`. Ràng buộc chống trùng chỉ xét `pending` và `confirmed`, nên khung giờ được trả lại ngay |
 | Đổi giá sau khi đã đặt | Lưu giá vào `total_vnd` lúc tạo đơn, đơn cũ không đổi |
 | Doanh thu theo ngày | Chỉ tính đơn đã xác nhận, nhóm theo ngày Việt Nam, ngày trống vẫn hiện giá trị 0 |
 
@@ -88,7 +89,7 @@ Bản production phải chạy qua HTTPS vì cookie có cờ `Secure`, và serve
 - Mật khẩu băm bằng bcryptjs. Argon2id tốt hơn nếu triển khai thật.
 - Múi giờ cố định UTC+7, không hỗ trợ cơ sở ở múi giờ khác.
 - Giới hạn đăng nhập và đăng ký lưu trong bộ nhớ, không dùng chung được khi chạy nhiều tiến trình.
-- Email chưa được xác minh và đơn chờ duyệt không tự hết hạn, nên nhiều tài khoản từ nhiều IP vẫn có thể chiếm chỗ cho tới khi quản trị viên từ chối.
+- Email chưa được xác minh, nên nhiều tài khoản từ nhiều IP vẫn có thể chiếm chỗ, mỗi đơn tối đa 24 giờ.
 - Đăng xuất chỉ xoá cookie. JWT đã bị lộ vẫn dùng được tới khi hết hạn sau 7 ngày.
 - Đăng ký bằng email đã có trả lỗi 409, nên có thể dò email tồn tại (đã giới hạn số lần theo IP).
 - Chưa có test end-to-end tự động. Luồng trên trình duyệt được kiểm tra thủ công.

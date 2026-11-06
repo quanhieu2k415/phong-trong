@@ -10,6 +10,7 @@ const EXCLUSION_VIOLATION = '23P01';
 const DEADLOCK_DETECTED = '40P01';
 const MAX_ATTEMPTS = 4;
 export const MAX_PENDING_PER_USER = 5;
+export const PENDING_HOLD_HOURS = 24;
 
 export const BOOKING_COLUMNS = `b.id, b.room_id AS "roomId", r.name AS "roomName",
   lower(b.during) AS start, upper(b.during) AS "end", b.status,
@@ -92,6 +93,16 @@ export async function findBooking(pool: Pool, id: number): Promise<unknown> {
     [id],
   );
   return result.rows[0];
+}
+
+export async function expirePending(pool: Pool): Promise<number> {
+  const expired = await pool.query(
+    `UPDATE bookings SET status = 'expired', decided_at = now()
+     WHERE status = 'pending'
+       AND (created_at <= now() - make_interval(hours => $1) OR lower(during) <= now())`,
+    [PENDING_HOLD_HOURS],
+  );
+  return expired.rowCount ?? 0;
 }
 
 export function createBookingsRouter(pool: Pool): Router {
