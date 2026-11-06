@@ -4,6 +4,16 @@
 
 Đây là dự án luyện tập. Tên phòng, giá và các đơn trong dữ liệu mẫu đều là dữ liệu giả.
 
+## Giao diện
+
+| Lịch trống theo ngày | Chọn giờ đặt phòng |
+|----------------------|--------------------|
+| ![Lịch trống của các phòng trong ngày](docs/screenshots/rooms.png) | ![Chọn khung giờ đặt Phòng Sen](docs/screenshots/room.png) |
+
+| Duyệt đơn | Thống kê doanh thu |
+|-----------|--------------------|
+| ![Hàng đợi duyệt đơn của quản trị viên](docs/screenshots/admin-queue.png) | ![Biểu đồ doanh thu theo ngày](docs/screenshots/admin-stats.png) |
+
 ## Chức năng
 
 | Vai trò | Có thể làm |
