@@ -1,0 +1,36 @@
+:root {
+  --paper: #f4efe4;
+  --surface: #fffdf8;
+  --rule: #d9d1bf;
+  --rule-strong: #1d2a26;
+  --ink: #1d2a26;
+  --muted: #56635d;
+  --accent: #0f5c4c;
+  --accent-hover: #0b4a3d;
+  --free: #dcebe2;
+  --free-hover: #c3ddcf;
+  --past: #e9e2d2;
+  --busy: #3b4a44;
+  --chart: #0a8a6b;
+
+  --pending: #8a5a00;
+  --pending-bg: #f8ecd0;
+  --confirmed: #1b6b4a;
+  --confirmed-bg: #dcefe4;
+  --rejected: #a3342b;
+  --rejected-bg: #f7e0dc;
+  --cancelled: #5e6663;
+  --cancelled-bg: #ece9e1;
+
+  --font-display: 'Fraunces Variable', Georgia, serif;
+  --font-body: 'Be Vietnam Pro', system-ui, sans-serif;
+
+  --text-title: clamp(2.25rem, 1.5rem + 3.6vw, 4.25rem);
+  --text-page: clamp(1.75rem, 1.5rem + 1.2vw, 2.5rem);
+
+  --tap: 44px;
+  --radius: 6px;
+  --gutter: clamp(1rem, 0.5rem + 2.5vw, 2.5rem);
+  --duration: 180ms;
+  --shadow: 0 1px 0 rgb(29 42 38 / 8%), 0 12px 28px -18px rgb(29 42 38 / 35%);
+}
