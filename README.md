@@ -71,7 +71,7 @@ npm run coverage -w server
 npm run typecheck
 ```
 
-Test của server chạy trên PostgreSQL thật ở cổng 54391, không mock database.
+Test của server chạy trên PostgreSQL thật ở cổng 54391, không mock database. GitHub Actions chạy typecheck, test và build ở mỗi lần push lên `main` và mỗi pull request.
 
 ## Chạy production
 
