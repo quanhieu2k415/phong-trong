@@ -11,7 +11,9 @@ const pool = createPool(config.databaseUrl);
 // In development dev-db migrates once Postgres is up, which can be after this process starts.
 if (config.isProduction) await migrate(pool);
 
-const server = createApp(pool, config).listen(config.port, () => {
+const server = createApp(pool, config).listen(config.port, (error) => {
+  // Express hands listen failures to this callback, and the sweep timer would keep a dead server alive.
+  if (error) throw error;
   console.log(`API listening on http://localhost:${config.port}`);
 });
 
