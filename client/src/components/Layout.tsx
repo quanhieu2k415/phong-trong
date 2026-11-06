@@ -46,7 +46,7 @@ export function Layout() {
           <NavLink to="/" end className="nav-link">
             Lịch phòng
           </NavLink>
-          {user && (
+          {user?.role === 'customer' && (
             <NavLink to="/don-cua-toi" className="nav-link">
               Đơn của tôi
             </NavLink>
