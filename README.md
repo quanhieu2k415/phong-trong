@@ -80,7 +80,7 @@ npm run build
 NODE_ENV=production npm start
 ```
 
-Server phục vụ luôn `client/dist`. Cần đặt ba biến:
+Server phục vụ luôn `client/dist` và tự áp dụng các migration chưa chạy mỗi khi khởi động. Cần đặt ba biến:
 
 | Biến | Giá trị |
 |------|---------|

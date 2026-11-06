@@ -1,12 +1,15 @@
 import { createApp } from './app.js';
 import { expirePending } from './bookings.js';
 import { loadConfig } from './config.js';
-import { createPool } from './db.js';
+import { createPool, migrate } from './db.js';
 
 const EXPIRY_SWEEP_MS = 60_000;
 
 const config = loadConfig(process.env);
 const pool = createPool(config.databaseUrl);
+
+// In development dev-db migrates once Postgres is up, which can be after this process starts.
+if (config.isProduction) await migrate(pool);
 
 const server = createApp(pool, config).listen(config.port, () => {
   console.log(`API listening on http://localhost:${config.port}`);
