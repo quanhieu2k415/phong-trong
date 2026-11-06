@@ -15,7 +15,7 @@ export type SlotState = 'free' | 'busy' | 'past';
 export type Slot = { start: string; end: string; state: SlotState };
 export type Availability = { date: string; roomStatus: RoomStatus; slots: Slot[] };
 
-export type BookingStatus = 'pending' | 'confirmed' | 'rejected' | 'cancelled';
+export type BookingStatus = 'pending' | 'confirmed' | 'rejected' | 'cancelled' | 'expired';
 export type Booking = {
   id: number;
   roomId: number;

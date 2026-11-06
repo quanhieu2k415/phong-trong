@@ -341,7 +341,8 @@ input[aria-invalid='true'] {
   color: var(--rejected);
 }
 
-.badge[data-status='cancelled'] {
+.badge[data-status='cancelled'],
+.badge[data-status='expired'] {
   background: var(--cancelled-bg);
   color: var(--cancelled);
 }

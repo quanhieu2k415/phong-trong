@@ -6,6 +6,7 @@ const STATUS: Record<BookingStatus, { label: string; icon: IconName }> = {
   confirmed: { label: 'Đã xác nhận', icon: 'check' },
   rejected: { label: 'Bị từ chối', icon: 'x' },
   cancelled: { label: 'Đã huỷ', icon: 'ban' },
+  expired: { label: 'Hết hạn duyệt', icon: 'clock' },
 };
 
 export const statusLabel = (status: BookingStatus): string => STATUS[status].label;

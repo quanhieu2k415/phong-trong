@@ -7,7 +7,7 @@ import { bookingDay, formatVnd, timeRange } from '../../lib/format';
 import type { AdminBooking, BookingStatus } from '../../lib/types';
 
 const POLL_MS = 20_000;
-const STATUSES: BookingStatus[] = ['pending', 'confirmed', 'rejected', 'cancelled'];
+const STATUSES: BookingStatus[] = ['pending', 'confirmed', 'rejected', 'cancelled', 'expired'];
 const ALL = 'all';
 
 type Filter = BookingStatus | typeof ALL;

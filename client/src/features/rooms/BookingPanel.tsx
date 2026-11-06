@@ -74,7 +74,7 @@ export function BookingPanel({ room, date, selection, onBooked }: BookingPanelPr
         {book.isPending ? 'Đang gửi…' : user ? 'Gửi yêu cầu đặt phòng' : 'Đăng nhập để đặt phòng'}
       </button>
       <p className="muted small">
-        Khung giờ được giữ ngay khi gửi, quản lý sẽ duyệt sau. Xem trạng thái ở <Link to="/don-cua-toi">Đơn của tôi</Link>.
+        Khung giờ được giữ tối đa 24 giờ để quản lý duyệt. Xem trạng thái ở <Link to="/don-cua-toi">Đơn của tôi</Link>.
       </p>
     </div>
   );

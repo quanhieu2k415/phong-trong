@@ -9,7 +9,7 @@ import { RevenueChart } from './RevenueChart';
 
 const PRESETS = [7, 30, 90];
 const DEFAULT_DAYS = 30;
-const STATUSES: BookingStatus[] = ['confirmed', 'pending', 'rejected', 'cancelled'];
+const STATUSES: BookingStatus[] = ['confirmed', 'pending', 'rejected', 'cancelled', 'expired'];
 
 function Summary({ stats }: { stats: Stats }) {
   const confirmed = stats.statusCounts.confirmed ?? 0;
