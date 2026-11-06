@@ -27,8 +27,7 @@ function useDecision() {
   });
 }
 
-function BookingRow({ booking }: { booking: AdminBooking }) {
-  const decide = useDecision();
+function BookingRow({ booking, decide }: { booking: AdminBooking; decide: ReturnType<typeof useDecision> }) {
   const isPending = booking.status === 'pending';
   return (
     <tr>
@@ -69,7 +68,6 @@ function BookingRow({ booking }: { booking: AdminBooking }) {
             </button>
           </div>
         )}
-        {decide.isError && <Notice tone="error">{errorText(decide.error)}</Notice>}
       </td>
     </tr>
   );
@@ -79,6 +77,8 @@ export default function QueuePage() {
   const [params, setParams] = useSearchParams();
   const filter = parseFilter(params.get('status'));
   const page = Math.max(1, Number(params.get('page')) || 1);
+  // Lives on the page: a refused row drops out of the list on refetch, and its error must outlast it.
+  const decide = useDecision();
 
   const bookings = useQuery({
     queryKey: ['admin-bookings', filter, page],
@@ -113,6 +113,7 @@ export default function QueuePage() {
           {errorText(bookings.error)}
         </Notice>
       )}
+      {decide.isError && <Notice tone="error">{errorText(decide.error)}</Notice>}
       {bookings.isPending && <p className="muted">Đang tải…</p>}
       {bookings.isSuccess && items.length === 0 && <p className="empty">Không có đơn nào ở mục này.</p>}
 
@@ -133,7 +134,7 @@ export default function QueuePage() {
             </thead>
             <tbody>
               {items.map((booking) => (
-                <BookingRow key={booking.id} booking={booking} />
+                <BookingRow key={booking.id} booking={booking} decide={decide} />
               ))}
             </tbody>
           </table>
